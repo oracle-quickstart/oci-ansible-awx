@@ -1,0 +1,40 @@
+#cloud-config
+final_message: "The system is finally up, after $UPTIME seconds"
+growpart:
+  devices: ['/']
+  mode: auto
+  ignore_growroot_disabled: false
+package_reboot_if_required: true
+package_update: true
+package_upgrade: true
+packages:
+  - ansible
+  - docker
+  - docker-engine
+  - docker-compose
+  - firewalld
+  - git
+  - libselinux-python3
+  - python3
+  - python3-pip
+  - python3-setuptools
+  - yum-cron
+write_files:
+  - content: |
+      #!/bin/bash
+      cd /srv/awx
+      docker-compose pull
+      docker-compose up -d
+    path: /etc/cron.daily/docker-compose-pull
+  - content: |
+      ---
+      admin_user: "${AWX_ADMIN_USERNAME}"
+      admin_password: "${AWX_ADMIN_PASSWORD}"
+      docker_compose_dir: "${AWX_DOCKER_COMPOSE}"
+      pg_username: "${AWX_PG_USERNAME}"
+      pg_password: "${AWX_PG_PASSWORD}"
+      postgres_data_dir: "${AWX_PG_DATA}"
+      secret_key: "${AWX_SECRET_KEY}"
+      ...
+    path: /root/awx.vars.yml
+

@@ -1,0 +1,167 @@
+---
+description: Deploy AWX automation platform on OracleLinux 7
+schemaVersion: 1.1.0
+source:
+  type: web
+  reference: https://www.oracle.com
+title: Deploy AWX automation platform on OracleLinux 7
+variableGroups:
+  - title: Hidden
+    variables:
+      - compartment_ocid
+      - tenancy_ocid
+      - region
+      - image_oraclelinux_7
+    visible: false
+  - title: Network Configuration
+    variables:
+      - vcn_compartment_ocid
+      - vcn_ocid
+      - subnet_compartment_ocid
+      - subnet_ocid
+      - public_ip
+    visible: true
+  - title: Server Configuration
+    variables:
+      - availability_domain
+      - fault_domain
+      - shape
+      - boot_volume_size_in_gbs
+      - ssh_public_key
+    visible: true
+  - title: AWX Configuration
+    variables:
+      - awx_version
+      - awx_admin_username
+      - awx_admin_password
+      - awx_pg_username
+      - awx_pg_password
+      - awx_secret
+    visible: true
+variables:
+  availability_domain:
+    dependsOn:
+      compartmentId: ${compartment_ocid}
+    required: true
+    title: Availability Domain
+    type: oci:identity:availabilitydomain:name
+  awx_version:
+    default: 14.1.0
+    enum:
+      - 12.0.0
+      - 13.0.0
+      - 14.0.0
+      - 14.1.0
+    required: true
+    title: AWX Version
+    type: enum
+  awx_admin_username:
+    description: 5 to 60 charachter alphanumeric, used to perform configuration and maintenance of AWX via the Web UI or the RESTful API
+    default: admin
+    maxLength: 60
+    minLength: 5
+    pattern: "^([0-9]|[A-Z]|[a-z])+$"
+    required: true
+    title: AWX Administrative Username
+    type: string
+  awx_admin_password:
+    description: 10 to 60 charachter alphanumeric
+    maxLength: 60
+    minLength: 10
+    pattern: "^([0-9]|[A-Z]|[a-z])+$"
+    required: true
+    title: AWX Administrative Password
+    type: string
+  awx_pg_username:
+    description: 5 to 60 charachter alphanumeric, used by awx to connect and administrate PostgreSQL
+    default: ansibleawx
+    maxLength: 60
+    minLength: 5
+    pattern: "^([0-9]|[A-Z]|[a-z])+$"
+    required: true
+    title: PostgreSQL Username
+    type: string
+  awx_pg_password:
+    description: 10 to 60 charachter alphanumeric
+    maxLength: 60
+    minLength: 10
+    pattern: "^([0-9]|[A-Z]|[a-z])+$"
+    required: true
+    title: PostgreSQL Password
+    type: string
+  awx_secret:
+    description: 10 to 60 charachter alphanumeric, used to encrypt secrets in the database
+    maxLength: 60
+    minLength: 10
+    pattern: "^([0-9]|[A-Z]|[a-z])+$"
+    required: true
+    title: AWX Secret
+    type: string
+  boot_volume_size_in_gbs:
+    default: 100
+    maximum: 16384
+    minimum: 50
+    required: true
+    type: number
+  compartment_ocid:
+    required: true
+    title: Compartment
+    type: oci:identity:compartment:id
+  fault_domain:
+    dependsOn:
+      compartmentId: ${compartment_ocid}
+      availabilityDomainName: ${availability_domain}
+    required: true
+    title: Fault Domain
+    type: oci:identity:faultdomain:name
+  public_ip:
+    required: true
+    title: Public IP
+    type: boolean
+  region:
+    required: true
+    title: region
+    type: oci:identity:region:name
+  shape:
+    dependsOn:
+      compartmentId: ${compartment_ocid}
+    default: "VM.Standard.E2.1.Micro"
+    required: true
+    title: Instance Shape
+    type: oci:core:instanceshape:name
+  tenancy_ocid:
+    required: true
+    title: Tenancy
+    type: string
+  ssh_public_key:
+    additionalProps:
+      allowMultiple: true
+    default: [""]
+    pattern: "((^(ssh-rsa AAAAB3NzaC1yc2|ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNT|ecdsa-sha2-nistp384 AAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzOD|ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1Mj|ssh-ed25519 AAAAC3NzaC1lZDI1NTE5|ssh-dss AAAAB3NzaC1kc3)[0-9A-Za-z+/]+[=]{0,3})( [^,]*)?)(,((ssh-rsa AAAAB3NzaC1yc2|ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNT|ecdsa-sha2-nistp384 AAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzOD|ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1Mj|ssh-ed25519 AAAAC3NzaC1lZDI1NTE5|ssh-dss AAAAB3NzaC1kc3)[0-9A-Za-z+/]+[=]{0,3})( [^,]*)?)*$"
+    required: false
+    title: SSH Public Key
+    type: oci:core:ssh:publickey
+  subnet_compartment_ocid:
+    default: ${vcn_compartment_ocid}
+    required: true
+    title: Subnet Compartment
+    type: oci:identity:compartment:id
+  subnet_ocid:
+    dependsOn:
+      compartmentId: ${subnet_compartment_ocid}
+      vcnId: ${vcn_ocid}
+    required: true
+    title: Subnet
+    type: oci:core:subnet:id
+  vcn_compartment_ocid:
+    default: ${compartment_ocid}
+    required: true
+    title: VCN Compartment
+    type: oci:identity:compartment:id
+  vcn_ocid:
+    dependsOn:
+      compartmentId: ${vcn_compartment_ocid}
+    required: true
+    title: VCN
+    type: oci:core:vcn:id
+

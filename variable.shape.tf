@@ -1,0 +1,3 @@
+variable "shape" {
+  type = string
+}
