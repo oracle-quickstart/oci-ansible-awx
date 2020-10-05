@@ -34,8 +34,8 @@ Ensure the user has access to OCI Resource Manager, Create VM, and Enumerate OCI
 ##### OCI Networking configuration 
 Ensure a pre-existing working VCN/Subnet/SecurityList configuration is in place with the following access:
 
-1.	To access AWX Web UI 
--	Ingress to 0.0.0.0/0 on tcp/80
+1.	To access AWX Web UI
+-	Ingress to 0.0.0.0/0 on tcp/80 *(If this is not enabled, the AWX website won't load)*
 -	Ingress to 0.0.0.0/0 on tcp/443 (TLS Certificate managed by LBaaS)
 
 2. To interact with OCI API, Ansible Galaxy, git repo, and other integrations
@@ -47,7 +47,7 @@ Ensure a pre-existing working VCN/Subnet/SecurityList configuration is in place 
 - Egress to 0.0.0.0/0 on tcp/22
 
 4. To manage Windows OS (via WinRM), recommend 
--	Egress to 0.0.0.0/0 on tcp/4985-5986
+-	Egress to 0.0.0.0/0 on tcp/5985-5986
 
 
 
@@ -75,11 +75,12 @@ Ensure a pre-existing working VCN/Subnet/SecurityList configuration is in place 
 13.	Now press "Create" and the stack is ready to deploy
 14.	Now you may "Apply" the configuration 
 ![Apply](images/awx-stack7.png)
-15.	Wait approximately 15-20 minutes after the apply operation completes
+15.	*Wait approximately 15-20 minutes after the apply operation completes*
 
 ### Accessing AWX
 1.	Browse to http://<public_ip>:80 and you will now be able to access/configure users, projects, inventory, and more
 Using AWX. For more info, check [Ansible Tower User Guide](https://docs.ansible.com/ansible-tower/latest/html/userguide/index.html).
+
 ![AWX Login](images/awx-stack8.png)
 
 
