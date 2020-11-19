@@ -4,14 +4,21 @@ Ansible AWX provides a web-based user interface, REST API, and task engine built
 
 This solution creates an OCI compute instance and deploys AWX on it. The solution can be deployed using OCI resource manager.
 
-#### Table of Contents
+# Quick Start
+
+[![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://console.us-phoenix-1.oraclecloud.com/resourcemanager/stacks/create?region=home&zipUrl=https://github.com/oracle-quickstart/oci-ansible-awx/archive/master.zip)
+
+# Table of Contents
+
 - Current Features
 - Requirements
 - Stack Deployment
 - Accessing AWX
 - Using AWX
+- License
 
-### Current Features
+# Current Features
+
 - Installs user determined AWX release with support for 12.0.0, 13.0.0 and 14.0.0
 - User determined credentials to manage AWX, PostgreSQL, and the AWX Secret key
 - Backup & Restore is supported by usage of tower-cli
@@ -20,18 +27,19 @@ This solution creates an OCI compute instance and deploys AWX on it. The solutio
 - OCI OS Management agent is deployed (requires policy deployment)
 - Cloud Init used to enable the following: OS patch on first boot, Daily OS patch via yum-cron, OS Firewall enabled for ingress tcp/80 and tcp/443 via Firewall
 
-
-### Requirements
+# Requirements
 
 Access needed during the provisioning process: 
 - https://github.com to deploy AWX via git clone
 - https://hub.docker.com to download required containers
 - https://pypi.org to download required Python2 based Ansible, Docker Compose, and supporting tools
 
-##### OCI Policy Statements
+## OCI Policy Statements
+
 Ensure the user has access to OCI Resource Manager, Create VM, and Enumerate OCI VCN/Subnet resources.
 
-##### OCI Networking configuration 
+## OCI Networking configuration 
+
 Ensure a pre-existing working VCN/Subnet/SecurityList configuration is in place with the following access:
 
 1.	To access AWX Web UI
@@ -49,9 +57,8 @@ Ensure a pre-existing working VCN/Subnet/SecurityList configuration is in place 
 4. To manage Windows OS (via WinRM), recommend 
 -	Egress to 0.0.0.0/0 on tcp/5985-5986
 
+# Stack Deployment
 
-
-### Stack Deployment
 1.	Login to OCI, and select target Region and Compartment
 2.	Create VCN, Subnet, and Security List if required
 3.	Navigate to Menu → Resource Manager → Stacks
@@ -77,14 +84,13 @@ Ensure a pre-existing working VCN/Subnet/SecurityList configuration is in place 
 ![Apply](images/awx-stack7.png)
 15.	*Wait approximately 15-20 minutes after the apply operation completes*
 
-### Accessing AWX
+# Accessing AWX
 1.	Browse to http://<public_ip>:80 and you will now be able to access/configure users, projects, inventory, and more
 Using AWX. For more info, check [Ansible Tower User Guide](https://docs.ansible.com/ansible-tower/latest/html/userguide/index.html).
 
 ![AWX Login](images/awx-stack8.png)
 
-
-### License
+# License
 The AWX source code is available under the Apache License 2.0.
 
 The code and scripts in this solution are available under the UPL [license](LICENSE).
