@@ -1,4 +1,3 @@
 provider "oci" {
-  region  = var.region
-  version = ">= 3.95"
+  region = var.region
 }
