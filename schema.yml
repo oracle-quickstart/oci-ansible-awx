@@ -23,10 +23,11 @@ variableGroups:
     visible: true
   - title: Server Configuration
     variables:
-      - availability_domain
-      - fault_domain
-      - shape
-      - boot_volume_size_in_gbs
+      - server_compartment_ocid
+      - server_ad
+      - server_fd
+      - server_shape
+      - server_boot_volume
       - ssh_public_key
     visible: true
   - title: AWX Configuration
@@ -39,12 +40,6 @@ variableGroups:
       - awx_secret
     visible: true
 variables:
-  availability_domain:
-    dependsOn:
-      compartmentId: ${compartment_ocid}
-    required: true
-    title: Availability Domain
-    type: oci:identity:availabilitydomain:name
   awx_version:
     default: 16.0.0
     enum:
@@ -96,23 +91,10 @@ variables:
     required: true
     title: AWX Secret
     type: string
-  boot_volume_size_in_gbs:
-    default: 100
-    maximum: 16384
-    minimum: 50
-    required: true
-    type: number
   compartment_ocid:
     required: true
     title: Compartment
     type: oci:identity:compartment:id
-  fault_domain:
-    dependsOn:
-      compartmentId: ${compartment_ocid}
-      availabilityDomainName: ${availability_domain}
-    required: true
-    title: Fault Domain
-    type: oci:identity:faultdomain:name
   public_ip:
     required: true
     title: Public IP
@@ -121,9 +103,32 @@ variables:
     required: true
     title: region
     type: oci:identity:region:name
-  shape:
+  server_ad:
     dependsOn:
-      compartmentId: ${compartment_ocid}
+      compartmentId: ${server_compartment_ocid}
+    required: true
+    title: Availability Domain
+    type: oci:identity:availabilitydomain:name
+  server_boot_volume:
+    default: 100
+    maximum: 16384
+    minimum: 50
+    required: true
+    type: number
+  server_compartment_ocid:
+    required: true
+    title: Compartment
+    type: oci:identity:compartment:id
+  server_fd:
+    dependsOn:
+      compartmentId: ${server_compartment_ocid}
+      availabilityDomainName: ${server_ad}
+    required: true
+    title: Fault Domain
+    type: oci:identity:faultdomain:name
+  server_shape:
+    dependsOn:
+      compartmentId: ${server_compartment_ocid}
     default: "VM.Standard.E2.1.Micro"
     required: true
     title: Instance Shape

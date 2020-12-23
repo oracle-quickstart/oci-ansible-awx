@@ -1,3 +1,0 @@
-variable "shape" {
-  type = string
-}
