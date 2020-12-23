@@ -46,12 +46,11 @@ variables:
     title: Availability Domain
     type: oci:identity:availabilitydomain:name
   awx_version:
-    default: 15.0.1
+    default: 16.0.0
     enum:
+      - 16.0.0
       - 15.0.1
       - 15.0.0
-      - 14.1.0
-      - 14.0.0
     required: true
     title: AWX Version
     type: enum

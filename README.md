@@ -19,7 +19,7 @@ This solution creates an OCI compute instance and deploys AWX on it. The solutio
 
 # Current Features
 
-- Installs user determined AWX release with support for 12.0.0, 13.0.0 and 14.0.0
+- Installs user determined AWX release with support for N and N-1 released major versions
 - User determined credentials to manage AWX, PostgreSQL, and the AWX Secret key
 - Backup & Restore is supported by usage of tower-cli
 - AWX Version Upgrades may be performed via backup & restore process
