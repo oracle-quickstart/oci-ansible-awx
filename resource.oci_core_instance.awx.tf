@@ -7,7 +7,7 @@ resource "oci_core_instance" "awx" {
   compartment_id      = var.server_compartment_ocid
   create_vnic_details {
     assign_public_ip = var.public_ip
-    hostname_label   = "awx"
+    hostname_label   = var.server_hostname
     subnet_id        = var.subnet_ocid
   }
   display_name = "awx"

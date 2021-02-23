@@ -126,6 +126,14 @@ variables:
     required: true
     title: Fault Domain
     type: oci:identity:faultdomain:name
+  server_hostname:
+    default: awx
+    description: 1 to 60 charachter alphanumeric, and becomes the hostname for AWX
+    maxLength: 60
+    minLength: 1
+    pattern: "^([0-9]|[A-Z]|[a-z])+$"
+    required: true
+    type: string
   server_shape:
     dependsOn:
       compartmentId: ${server_compartment_ocid}
@@ -133,10 +141,6 @@ variables:
     required: true
     title: Instance Shape
     type: oci:core:instanceshape:name
-  tenancy_ocid:
-    required: true
-    title: Tenancy
-    type: string
   ssh_public_key:
     additionalProps:
       allowMultiple: true
@@ -157,6 +161,10 @@ variables:
     required: true
     title: Subnet
     type: oci:core:subnet:id
+  tenancy_ocid:
+    required: true
+    title: Tenancy
+    type: string
   vcn_compartment_ocid:
     default: ${compartment_ocid}
     required: true
