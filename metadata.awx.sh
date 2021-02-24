@@ -28,7 +28,7 @@ git pull
 git checkout tags/${GIT_TAG}
 
 cd ${GIT_CHECKOUT}/installer
-/root/.local/bin/ansible-playbook-3 install.yml -i inventory -e @/root/awx.vars.yml
+ansible-playbook-3 install.yml -i inventory -e @/root/awx.vars.yml
 
 chmod +x /etc/cron.daily/docker-compose-pull
 
