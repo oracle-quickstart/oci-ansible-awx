@@ -9,6 +9,7 @@ package_update: true
 package_upgrade: true
 packages:
   - ansible
+  - ansible-python3
   - docker
   - docker-engine
   - docker-compose
