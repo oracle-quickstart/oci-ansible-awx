@@ -19,8 +19,6 @@ done
 
 systemctl restart firewalld.service
 
-/usr/bin/pip3 install --user --upgrade --disable-pip-version-check ansible
-
 if [ ! -d ${GIT_CHECKOUT} ]
 then
   git clone ${GIT_REPO} ${GIT_CHECKOUT}
@@ -30,7 +28,7 @@ git pull
 git checkout tags/${GIT_TAG}
 
 cd ${GIT_CHECKOUT}/installer
-/root/.local/bin/ansible-playbook install.yml -i inventory -e @/root/awx.vars.yml
+/root/.local/bin/ansible-playbook-3 install.yml -i inventory -e @/root/awx.vars.yml
 
 chmod +x /etc/cron.daily/docker-compose-pull
 
