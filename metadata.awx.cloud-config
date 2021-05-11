@@ -10,7 +10,7 @@ package_upgrade: true
 packages:
   - ansible
   - ansible-python3
-  - docker
+  - docker-cli
   - docker-engine
   - docker-compose
   - firewalld
@@ -19,6 +19,7 @@ packages:
   - python3
   - python3-pip
   - python3-setuptools
+  - python36-PyYAML
   - yum-cron
 write_files:
   - content: |
