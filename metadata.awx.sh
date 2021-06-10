@@ -1,8 +1,22 @@
 #!/bin/bash
 
+PACKAGES=""
+PACKAGES+=" ansible"
+PACKAGES+=" ansible-python3"
+PACKAGES+=" docker-cli"
+PACKAGES+=" docker-engine"
+PACKAGES+=" docker-compose"
+PACKAGES+=" firewalld"
+PACKAGES+=" git"
+PACKAGES+=" libselinux-python3"
+PACKAGES+=" python3"
+PACKAGES+=" python3-pip"
+PACKAGES+=" python3-setuptools"
+PACKAGES+=" yum-cron"
+yum -y install ${PACKAGES}
+
 sed -i -r -e 's/\s+no$/ yes/g' /etc/yum/yum-cron*.conf
 sed -i -r -e '/^autoinstall/s/no/yes/' /etc/uptrack/uptrack.conf
-
 
 systemctl enable --now dbus.service
 systemctl enable --now docker.service
