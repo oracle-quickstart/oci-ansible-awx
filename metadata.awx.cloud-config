@@ -7,20 +7,6 @@ growpart:
 package_reboot_if_required: false
 package_update: true
 package_upgrade: true
-packages:
-  - ansible
-  - ansible-python3
-  - docker-cli
-  - docker-engine
-  - docker-compose
-  - firewalld
-  - git
-  - libselinux-python3
-  - python3
-  - python3-pip
-  - python3-setuptools
-  - python36-PyYAML
-  - yum-cron
 write_files:
   - content: |
       #!/bin/bash
