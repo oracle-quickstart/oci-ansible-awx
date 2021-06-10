@@ -13,7 +13,7 @@ PACKAGES+=" python3"
 PACKAGES+=" python3-pip"
 PACKAGES+=" python3-setuptools"
 PACKAGES+=" yum-cron"
-yum -y install ${PACKAGES}
+yum -y install $PACKAGES
 
 sed -i -r -e 's/\s+no$/ yes/g' /etc/yum/yum-cron*.conf
 sed -i -r -e '/^autoinstall/s/no/yes/' /etc/uptrack/uptrack.conf
